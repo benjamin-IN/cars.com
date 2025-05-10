@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BMW Car Showcase</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #0a0a0a;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin: 0;
+    }
+
+    #search {
+      margin: 30px auto;
+      display: block;
+      padding: 15px;
+      width: 80%;
+      max-width: 600px;
+      font-size: 18px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .car-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px 40px;
+    }
+
+    .car-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .car-card:hover {
+      transform: scale(1.03);
+    }
+
+    .car-image {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .car-info {
+      padding: 15px;
+    }
+
+    .car-name {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .like-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .like-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .likes {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>BMW Car Showcase</h1>
+</header>
+
+<input type="text" id="search" placeholder="Search for a hidden BMW model..." />
+
+<div class="car-container" id="carList"></div>
+
+<!-- Like Sound -->
+<audio id="likeSound" src="https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3" preload="auto"></audio>
+
+<script>
+  const visibleCars = [
+    { name: "BMW M3", image: "https://cdn.motor1.com/images/mgl/qG2XP/s1/2023-bmw-m3-cs.jpg", likes: 0 },
+    { name: "BMW X5", image: "https://cdn.motor1.com/images/mgl/Ln2n3/s1/bmw-x5-xdrive45e.jpg", likes: 0 },
+    { name: "BMW i8", image: "https://cdn.motor1.com/images/mgl/0ANL6/s1/bmw-i8.jpg", likes: 0 },
+    { name: "BMW M5", image: "https://cdn.motor1.com/images/mgl/Ryxn6/s1/bmw-m5-competition.jpg", likes: 0 },
+  ];
+
+  const hiddenCars = [
+    { name: "BMW M4", image: "https://cdn.motor1.com/images/mgl/x6qqe/s1/2021-bmw-m4.jpg", likes: 0 },
+    { name: "BMW X6", image: "https://cdn.motor1.com/images/mgl/7rL6z/s1/bmw-x6-m50i.jpg", likes: 0 },
+    { name: "BMW 7 Series", image: "https://cdn.motor1.com/images/mgl/BXxVV/s1/2023-bmw-7-series.jpg", likes: 0 },
+    { name: "BMW Z4", image: "https://cdn.motor1.com/images/mgl/XZ6n6/s1/bmw-z4.jpg", likes: 0 },
+    { name: "BMW i4", image: "https://cdn.motor1.com/images/mgl/pZxA0/s1/2022-bmw-i4.jpg", likes: 0 },
+  ];
+
+  const carListEl = document.getElementById("carList");
+  const likeSound = document.getElementById("likeSound");
+
+  function createCarCard(car) {
+    const card = document.createElement("div");
+    card.className = "car-card";
+
+    const image = document.createElement("img");
+    image.src = car.image;
+    image.alt = car.name;
+    image.className = "car-image";
+
+    const info = document.createElement("div");
+    info.className = "car-info";
+
+    const name = document.createElement("div");
+    name.className = "car-name";
+    name.textContent = car.name;
+
+    const likeBtn = document.createElement("button");
+    likeBtn.className = "like-btn";
+    likeBtn.textContent = "Like";
+
+    const likes = document.createElement("div");
+    likes.className = "likes";
+    likes.textContent = `Likes: ${car.likes}`;
+
+    likeBtn.onclick = () => {
+      car.likes++;
+      likes.textContent = `Likes: ${car.likes}`;
+      likeSound.currentTime = 0;
+      likeSound.play();
+    };
+
+    info.appendChild(name);
+    info.appendChild(likeBtn);
+    info.appendChild(likes);
+    card.appendChild(image);
+    card.appendChild(info);
+
+    return card;
+  }
+
+  function renderCars(cars) {
+    cars.forEach(car => {
+      carListEl.appendChild(createCarCard(car));
+    });
+  }
+
+  renderCars(visibleCars);
+
+  document.getElementById("search").addEventListener("input", function () {
+    const query = this.value.toLowerCase().trim();
+    if (!query) return;
+
+    const found = hiddenCars.find(car => car.name.toLowerCase().includes(query));
+    if (found) {
+      hiddenCars.splice(hiddenCars.indexOf(found), 1);
+      carListEl.appendChild(createCarCard(found));
+    }
+  });
+</script>
+
+</body>
+</html>

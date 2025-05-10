@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sell Your Car</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.5);
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      border: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #007BFF;
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Sell Your Car</h2>
+  <form action="https://formspree.io/f/mzzrrabl"
+  method="POST"
+  enctype="multipart/form-data">
+    <input type="text" name="ownerName" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <input type="text" name="contact" placeholder="Phone Number" required>
+    <input type="text" name="carModel" placeholder="Car Model" required>
+    <input type="text" name="year" placeholder="Year" required>
+    <input type="number" name="price" placeholder="Price" required>
+    <label>Upload Car Image:</label>
+    <input type="file" name="carImage" accept="image/*" required>
+    <label>Upload Document (PDF or image):</label>
+    <input type="file" name="carDoc" accept=".pdf,image/*" required>
+    <textarea name="description" rows="5" placeholder="Describe your car..." required></textarea>
+    <button type="submit">Submit Listing</button>
+  </form>
+</div>
+
+</body>
+</html>

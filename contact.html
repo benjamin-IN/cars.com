@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="contact.css">
+    <title>Contact Form</title>
+</head>
+<body>
+    <div class="overlay" id="myDiv">
+        <div class="modal">        
+            <form  action="https://api.web3forms.com/submit" method="POST">
+            <h1>Contact</h1>
+    
+                  <input type="hidden" name="access_key" value="7987d316-a9ae-4697-b813-32ec8ad49624">
+                  <input type="text" name="name" placeholder="Your Name" required>
+                  <input type="email" name="email" placeholder="Your Email" required>
+                  <textarea type="message" rows="5" name="message"  placeholder="Enter your message" required></textarea>
+        
+                    <button class="continue" onclick="send()">Send</button>
+        </form>
+             <button class="back" onclick="back()">Back</button>
+        </div> 
+    </div>
+<script src="script.js"></script>
+</body>
+</html>
